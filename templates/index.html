@@ -2,5 +2,24 @@
 
 {% block main %}
     <h1>Home Page</h1>
+    <form action="/" method="post">
+        <input placeholder="Username" name="username" type="text">
+        <input placeholder="Password" name="password" type="password">
+        <input type="submit">
+    </form>
+    <p>{{ message }}</p>
+
+        <!-- Current Error with CORS, check web bage console when accessing index  -->
+
+    <script>
+    var settings = {
+        "url": "https://nclepohljh.execute-api.us-east-2.amazonaws.com/test/request?username=test&accesskey=test2",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
+    </script>
 
 {% endblock main %}

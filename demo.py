@@ -1,10 +1,19 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route("/", methods = ["GET"])
+@app.route("/", methods = ["GET", "POST"])
 def home():
-    return render_template("index.html")
+    if request.method == "GET":
+        return render_template("index.html")
+    else:
+        username = request.form["username"]
+        password = request.form["password"]
+        if username == "bob" and password == "pass":
+            return render_template("mech.html", message = "Logged in!")
+        else:
+            error_message = "Wrong Username or Password"
+            return render_template("index.html", message = error_message)
 
 # adds path to the hosted page (localhost7000/mech)
 @app.route("/mech", methods = ["GET"])
