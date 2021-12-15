@@ -10,7 +10,7 @@ def home():
     else:
         username = request.form["username"]
         password = request.form["password"]
-        if username == "Bob" and password == "pass":
+        if username == model.check_data(username, "username") and password == model.check_data(password, "password"):
             message = model.show_word("Bob")
             return render_template("mech.html", message = message)
         else:
