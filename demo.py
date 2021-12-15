@@ -10,8 +10,10 @@ def home():
     else:
         username = request.form["username"]
         password = request.form["password"]
-        if username == model.check_data(username, "username") and password == model.check_data(password, "password"):
-            message = model.show_word("Bob")
+        user_pass = model.check_pass(username)
+
+        if password == model.check_pass(username):
+            message = model.show_word(username)
             return render_template("mech.html", message = message)
         else:
             error_message = "Wrong Username or Password"

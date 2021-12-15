@@ -19,14 +19,15 @@ def show_word(username):
     message = f"{username}'s secret word is \"{word}\", don't tell anyone."
     return message
 
-def check_data(data, column_name):
+
+def check_pass(username):
     connection = sqlite3.connect("flask_tut.db", check_same_thread = False)
     cursor = connection.cursor()
     cursor.execute(
         f"""
-        SELECT {column_name}
+        SELECT password
         FROM users
-        WHERE {column_name} = '{data}'
+        WHERE username = '{username}'
         """
     )
 
@@ -41,5 +42,3 @@ def check_data(data, column_name):
     connection.close()
 
     return result
-
-#TODO create single menthod to ensure the key for the username and password match 
