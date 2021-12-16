@@ -42,3 +42,37 @@ def check_pass(username):
     connection.close()
 
     return result
+
+
+def signup(username, password, secret_word):
+    connection = sqlite3.connect("flask_tut.db", check_same_thread = False)
+    cursor = connection.cursor()
+    cursor.execute(
+        f"""
+        SELECT username
+        FROM users
+        WHERE username = '{username}'
+        """
+    )
+    result = cursor.fetchone()[0]
+    
+    if result is None:
+        cursor.execute(
+        f"""
+        INSERT INTO users(
+        username,
+        password,
+        secret_word
+        )
+        VALUES(
+        '{username}',
+        '{password}',
+        '{secret_word}'
+        );
+        """
+        )
+
+
+    connection.commit()
+    cursor.close()
+    connection.close()
