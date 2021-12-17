@@ -26,7 +26,15 @@ def mech():
 
 @app.route("/signup", methods = ["GET"])
 def signup():
-    return render_template("mech.html")
+    if request.method == "GET":
+        message = "Please register your account"
+        return render_template("signup.html", message = message)
+    else:
+        username = request.form["username"]
+        password = request.form["password"]
+        secret_word = request.form["secret_word"]
+        message = model.signup(username, password, secret_word)
+        return render_template("signup.html", message = message)
 
 if __name__ == "__main__":
     app.run( port = 7000, debug = True)

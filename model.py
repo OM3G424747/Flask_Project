@@ -71,8 +71,13 @@ def signup(username, password, secret_word):
         );
         """
         )
-
+    else:
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return ("Username already in use.")
 
     connection.commit()
     cursor.close()
     connection.close()
+    return "User registered successfully."
