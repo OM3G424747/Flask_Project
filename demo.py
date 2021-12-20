@@ -24,7 +24,7 @@ def home():
 def mech():
     return render_template("mech.html")
 
-@app.route("/signup", methods = ["GET"])
+@app.route("/signup", methods = ["GET", "POST"])
 def signup():
     if request.method == "GET":
         message = "Please register your account"

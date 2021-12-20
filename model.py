@@ -54,9 +54,14 @@ def signup(username, password, secret_word):
         WHERE username = '{username}'
         """
     )
-    result = cursor.fetchone()[0]
     
-    if result is None:
+    try:
+        result = cursor.fetchone()[0]
+    except:
+        # returns negative 1 to indicate an error
+        result = -1
+
+    if result == -1:
         cursor.execute(
         f"""
         INSERT INTO users(
@@ -75,7 +80,7 @@ def signup(username, password, secret_word):
         connection.commit()
         cursor.close()
         connection.close()
-        return ("Username already in use.")
+        return "Username already in use."
 
     connection.commit()
     cursor.close()
