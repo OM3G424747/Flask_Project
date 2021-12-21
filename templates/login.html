@@ -1,17 +1,17 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h1>Register new account</h1>
-    <form action="/signup" method="post">
+    <h1>Login Page</h1>
+    <form action="/login" method="post">
         <input placeholder="Username" name="username" type="text">
         <input placeholder="Password" name="password" type="password">
-        <input placeholder="Secret Word" name="secret_word" type="text">
         <input type="submit">
     </form>
-<p>{{ message }}</p>
-<br>
-<br>
-<br>
-<a href="/login">Login to existing account</a>
+    <p>{{ message }}</p>
+
+    <br>
+    <br>
+    <br>
+    <a href="/signup">Register New Account</a>
 
 {% endblock main %}

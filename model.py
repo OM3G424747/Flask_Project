@@ -7,7 +7,7 @@ def show_word(username):
         f"""
         SELECT secret_word
         FROM users
-        WHERE username = '{username}'
+        WHERE username = '{username}';
         """
     )
     word = cursor.fetchone()[0]
@@ -27,12 +27,42 @@ def check_pass(username):
         f"""
         SELECT password
         FROM users
-        WHERE username = '{username}'
+        WHERE username = '{username}';
         """
     )
 
     try:
         result = cursor.fetchone()[0]
+    except:
+        # returns negative 1 to indicate an error
+        result = -1
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return result
+
+
+def check_users():
+    connection = sqlite3.connect("flask_tut.db", check_same_thread = False)
+    cursor = connection.cursor()
+    cursor.execute(
+        f"""
+        SELECT username
+        FROM users
+        ORDER BY pk DESC;
+        """
+    )
+
+    try:
+        db_users = cursor.fetchall()
+        result = []
+
+        for i in range(len(db_users)):
+            user = db_users[i][0]
+            result.append(user)
+
     except:
         # returns negative 1 to indicate an error
         result = -1
@@ -51,7 +81,7 @@ def signup(username, password, secret_word):
         f"""
         SELECT username
         FROM users
-        WHERE username = '{username}'
+        WHERE username = '{username}';
         """
     )
     
