@@ -13,7 +13,7 @@ user = model.check_users()
 def home():
     if username in session:
         g.user = session["username"]
-        return render_template("mech.html")
+        return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif>")
     return render_template("homepage.html", message = "Login or Sign Up")
     
     """
@@ -32,6 +32,12 @@ def home():
             return render_template("index.html", message = error_message)
     """
 
+@app.before_request
+def before_request():
+    g.username = None
+    if username in session:
+        g.username = session["username"]
+
 # adds path to the hosted page (localhost7000/mech)
 @app.route("/mech", methods = ["GET"])
 def mech():
@@ -46,8 +52,12 @@ def login():
         if pwd == model.check_pass(areyouuser):
             session["username"] = request.form["username"]
             return redirect(for_url("home"))
+        
+        # returns if login fails
+        error_message = "Wrong Username or Password"
+        return render_template("login.html", message = error_message)
     
-    
+    """
     if request.method == "GET":
         message = "Please login to your account"
         return render_template("login.html", message = message)
@@ -63,6 +73,7 @@ def login():
             # condition for wrong password
             error_message = "Wrong Username or Password"
             return render_template("login.html", message = error_message)
+    """
 
 
 @app.route("/signup", methods = ["GET", "POST"])
@@ -76,6 +87,17 @@ def signup():
         secret_word = request.form["secret_word"]
         message = model.signup(username, password, secret_word)
         return render_template("signup.html", message = message)
+
+@app.route("/getsession")
+def get_session():
+    if username in session:
+        return session["username"]
+    return redirect(url_for("login"))
+
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run( port = 7000, debug = True)
