@@ -13,7 +13,7 @@ user = model.check_users()
 def home():
     if username in session:
         g.user = session["username"]
-        return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif>")
+        return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif")
     return render_template("homepage.html", message = "Login or Sign Up")
     
     """
@@ -41,21 +41,30 @@ def before_request():
 # adds path to the hosted page (localhost7000/mech)
 @app.route("/mech", methods = ["GET"])
 def mech():
-    return render_template("mech.html")
+        if username in session:
+            g.user = session["username"]
+            return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif")
+        else:
+            return render_template("homepage.html", message = "Login or Sign Up")
+
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
+    message = ""
     if request.method == "POST":
         session.pop("username", None)
         areyouuser = request.form["username"]
         pwd = model.check_pass(areyouuser)
         if pwd == model.check_pass(areyouuser):
             session["username"] = request.form["username"]
-            return redirect(for_url("home"))
+            return redirect(url_for("mech"))
+        else:
+            # returns if login fails
+            message = "Wrong Username or Password"
+            return render_template("login.html", message = message)
         
-        # returns if login fails
-        error_message = "Wrong Username or Password"
-        return render_template("login.html", message = error_message)
+        
+    return render_template("login.html", message = message)
     
     """
     if request.method == "GET":
