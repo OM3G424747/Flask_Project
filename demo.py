@@ -11,9 +11,9 @@ user = model.check_users()
 
 @app.route("/", methods = ["GET", "POST"])
 def home():
-    if username in session:
+    if "username" in session:
         g.user = session["username"]
-        return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif")
+        return render_template("mech.html", message = "<img scr = ../static/img/8Hi2.gif>")
     return render_template("homepage.html", message = "Login or Sign Up")
     
     """
@@ -35,15 +35,15 @@ def home():
 @app.before_request
 def before_request():
     g.username = None
-    if username in session:
+    if "username" in session:
         g.username = session["username"]
 
 # adds path to the hosted page (localhost7000/mech)
 @app.route("/mech", methods = ["GET"])
 def mech():
-        if username in session:
+        if "username" in session:
             g.user = session["username"]
-            return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif")
+            return render_template("mech.html", message = "<img scr = /static/img/8Hi2.gif>")
         else:
             return render_template("homepage.html", message = "Login or Sign Up")
 
@@ -54,7 +54,7 @@ def login():
     if request.method == "POST":
         session.pop("username", None)
         areyouuser = request.form["username"]
-        pwd = model.check_pass(areyouuser)
+        pwd = request.form["password"]
         if pwd == model.check_pass(areyouuser):
             session["username"] = request.form["username"]
             return redirect(url_for("mech"))
