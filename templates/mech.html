@@ -1,11 +1,14 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h1>You are logged in</h1>
-<p>{{ message }}</p>
+    <h1>You are logged in</h1>
+
+    <br>
+    {{message | safe}}
+    <br>
 
     <h3>Mech Loading ...</h3>
 
-<a href="/logout">Log Out</a>
+    <a href="/logout">Log Out</a>
 
 {% endblock main %}
