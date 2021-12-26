@@ -57,7 +57,7 @@ def login():
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
     if request.method == "GET":
-        message = "Please register your account"
+        message = ""
         return render_template("signup.html", message = message)
     else:
         username = request.form["username"]

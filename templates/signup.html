@@ -1,17 +1,31 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h1>Register new account</h1>
-    <form action="/signup" method="post">
-        <input placeholder="Username" name="username" type="text">
-        <input placeholder="Password" name="password" type="password">
-        <input placeholder="Secret Word" name="secret_word" type="text">
-        <input type="submit">
-    </form>
-<p>{{ message }}</p>
+    <main class="form-signin">
+        <form>
+            <h1 class="h3 mb-3 fw-normal">Please register your account</h1>
+
+            <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
+            <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Secret Word" name="secret_word">
+            <label for="floatingInput">Secret Word</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+            <a href="/login">Login to existing account</a>
+            <br>
+            <p>{{ message }}</p>
+            <br>
+        </form>
+        </main>
 <br>
 <br>
-<br>
-<a href="/login">Login to existing account</a>
+
 
 {% endblock main %}
