@@ -1,12 +1,18 @@
 {% extends "structure.html" %}
 
 {% block main %}
-    <h1>Home Page</h1>
+<main class="form-signin">    
+    
+    <h1 class="h3 mb-3 fw-normal">Home Page</h1>
     <p>{{ message }}</p>
+    
     <br>
+    <div>
     <a href="/login">Login to existing account</a>
 
     <br>
     <a href="/signup">Register new account</a>
+    </div>
+</main>
 
 {% endblock main %}
