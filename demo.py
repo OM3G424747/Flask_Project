@@ -13,7 +13,10 @@ user = model.check_users()
 def home():
     if "username" in session:
         g.user = session["username"]
-        return render_template("mech.html", message = "<img src = static/img/8Hi2.gif>")
+        admin_message = ""
+        if session["username"] == "chris":
+            admin_message = "You're the admin"
+        return render_template("mech.html", message = "<img src = static/img/8Hi2.gif>" + admin_message)
     return render_template("homepage.html", message = "Login or Sign Up")
     
 
@@ -29,7 +32,11 @@ def before_request():
 def mech():
         if "username" in session:
             g.user = session["username"]
-            return render_template("mech.html", message = "<img src = static/img/8Hi2.gif>")
+            
+            admin_message = ""
+            if session["username"] == "chris":
+                admin_message = "You're the admin"
+            return render_template("mech.html", message = "<img src = static/img/8Hi2.gif>" + admin_message)
         else:
             return render_template("homepage.html", message = "Login or Sign Up")
 
