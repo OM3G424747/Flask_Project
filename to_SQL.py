@@ -1,65 +1,10 @@
-import mysql.connector
+import sqlite3
 from random import randint
 import csv, os
 import pandas as pd
 
 
 
-
-def get_password():
-
-    colour_list = ["red", "yellow", "blue", "brown", 
-                    "orange", "green", "violet", "black", 
-                    "carnation", "white", "dandelion", "cerulean", 
-                    "apricot", "scarlet", "teal", "indigo", "gray"]
-
-    pokemon_list = ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander",
-                    "Charmeleon", "Charizard", "Squirtle", "Wartortle",
-                    "Blastoise", "Caterpie", "Metapod", "Butterfree",
-                    "Weedle", "Kakuna", "Beedrill", "Pidgey",
-                    "Pidgeotto", "Pidgeot", "Rattata", "Raticate",
-                    "Spearow", "Fearow", "Ekans", "Arbok",
-                    "Pikachu", "Raichu", "Sandshrew", "Sandslash",
-                    "Nidoran", "Nidorina", "Nidoqueen", "Nidoran",
-                    "Nidorino", "Nidoking", "Clefairy", "Clefable", 
-                    "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff",
-                    "Zubat", "Golbat", "Oddish", "Gloom",
-                    "Vileplume", "Paras", "Parasect", "Venonat",
-                    "Venomoth", "Diglett", "Dugtrio", "Meowth",
-                    "Persian", "Psyduck", "Golduck", "Mankey", 
-                    "Primeape", "Growlithe", "Arcanine", "Poliwag",
-                    "Poliwhirl", "Poliwrath", "Abra", "Kadabra", 
-                    "Alakazam", "Machop", "Machoke", "Machamp", 
-                    "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", 
-                    "Tentacruel", "Geodude", "Graveler", "Golem",
-                    "Ponyta", "Rapidash", "Slowpoke", "Slowbro",
-                    "Magnemite", "Magneton", "Doduo", "Dodrio", 
-                    "Seel", "Dewgong", "Grimer", "Muk",
-                    "Shellder", "Cloyster", "Gastly", "Haunter",
-                    "Gengar", "Onix", "Drowzee", "Hypno",
-                    "Krabby", "Kingler", "Voltorb", "Electrode", 
-                    "Exeggcute", "Exeggutor", "Cubone", "Marowak",
-                    "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing",
-                    "Weezing", "Rhyhorn", "Rhydon", "Chansey",
-                    "Tangela", "Kangaskhan", "Horsea", "Seadra",
-                    "Goldeen", "Seaking", "Staryu", "Starmie",
-                    "Scyther", "Jynx", "Electabuzz", "Magmar",
-                    "Pinsir", "Tauros", "Magikarp", "Gyarados",
-                    "Lapras", "Ditto", "Eevee", "Vaporeon",
-                    "Jolteon", "Flareon", "Porygon", "Omanyte",
-                    "Omastar", "Kabuto", "Kabutops", "Aerodactyl",
-                    "Snorlax", "Articuno", "Zapdos", "Moltres",
-                    "Dratini", "Dragonair", "Dragonite", "Mewtwo",
-                    "Mew"]
-
-    password = colour_list[randint(0,len(colour_list)-  1)] 
-    password += pokemon_list[randint(0,len(pokemon_list)-  1)]
-    password += str(randint(1, 100))
-
-    return password
-
-# generates a random password
-print(get_password())
 
 #file = open("")
 path = "file_to_upload/"
@@ -102,12 +47,8 @@ for i in range(len(rows)):
 
 
 # connects to SQL
-mydb = mysql.connector.connect(
-    host="test.cazr6gubvkba.us-east-2.rds.amazonaws.com",
-    user="root",
-    password="fuckedup",
-    database="test"
-)
+connection = sqlite3.connect("flask_tut.db", check_same_thread = False)
+cursor = connection.cursor()
 
 mycursor = mydb.cursor()
 
